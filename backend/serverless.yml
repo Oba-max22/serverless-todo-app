@@ -31,8 +31,8 @@ custom:
     api:
       info:
         version: '1.0.0'
-        title: todo-sls
-        description: todo-sls
+        title: serverless-todo-app
+        description: serverless-todo-app
     models:
       - name: CreateTodoRequest
         contentType: "application/json"
@@ -96,9 +96,11 @@ functions:
           path: todos
           cors: true
           authorizer: Auth
-          request:
-            schemas:
-              application/json: ${file(models/create-todo-model.json)}
+          documentation:
+            summary: "Create a new todo item"
+            description: "Create a new todo item"
+            requestModels:
+              "application/json": CreateTodoRequest
           reqValidatorName: RequestBodyValidator
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-create-todo-model-${self:provider.stage}
     iamRoleStatements:
@@ -120,9 +122,11 @@ functions:
           path: todos/{todoId}
           cors: true
           authorizer: Auth
-          request:
-            schemas:
-              application/json: ${file(models/update-todo-model.json)}
+          documentation:
+            summary: "Update todo item"
+            description: "Update todo item"
+            requestModels:
+              "application/json": CreateTodoRequest
           reqValidatorName: RequestBodyValidator
     iamRoleStatementsName: ${self:provider.environment.PROJECT_NAME}-update-todo-model-${self:provider.stage}
     iamRoleStatements:
